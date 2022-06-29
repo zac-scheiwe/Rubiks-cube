@@ -14,11 +14,17 @@ class Face:
     def switch(self):
         self._coord = -self._coord
 
+    def __eq__(self, other) -> bool:
+        if isinstance(other, Face):
+            return self.coord == other.coord
+        # Else:
+        return False
+
     def __repr__(self):
         return self.coord
 
 class ColoredFace(Face):
-    """A colored face of a Rubik's cube."""
+    """A colored face of one piece of a Rubik's cube."""
 
     os.system('color')
 
@@ -26,7 +32,7 @@ class ColoredFace(Face):
     
     @staticmethod
     def get_valid_color(color: str) -> str:
-        color_len: int = len(color)
+        color_len = len(color)
         for valid_color in ColoredFace.VALID_COLORS:
             if color.lower() == valid_color[0:color_len].lower():
                 return valid_color
@@ -45,6 +51,13 @@ class ColoredFace(Face):
     @property
     def color(self):
         return self.color_name[0].upper()
+
+    def __eq__(self, other) -> bool:
+        if Face.__eq__(self, other):
+            if isinstance(other, ColoredFace):
+                return (self.color == other.color)
+        # Else:
+        return False
 
     def __str__(self):
         return colored("██", self.color_name)

@@ -1,6 +1,6 @@
 import pytest
 from termcolor import colored  # type: ignore
-from package.face import Face, ColoredFace
+from package.face import ColoredFace
 
 def test_invalid_color():
     with pytest.raises(ValueError) as _:
