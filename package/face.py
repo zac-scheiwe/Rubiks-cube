@@ -33,9 +33,6 @@ class Face:
     def coord(self):
         return self._coord
 
-    def switch(self):
-        self._coord = -self._coord
-
     @property
     def is_colored(self):
         return self._color_name is not None
@@ -50,6 +47,9 @@ class Face:
             return self.color_name[0].upper()
         # Else:
         return None
+
+    def flip(self) -> None:
+        self._coord = -self._coord
 
     def __eq__(self, other) -> bool:
         if isinstance(other, Face):
