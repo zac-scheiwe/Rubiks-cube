@@ -2,14 +2,14 @@ import pytest
 from termcolor import colored  # type: ignore
 from package.face import Face
 
-def test_face_coord():
+def test_coord():
     my_face = Face(5, "mag")
     assert my_face.coord == 5
     assert my_face.color == "M"
     my_face.switch()
     assert my_face.coord == -5
 
-def test_face_equality():
+def test_equality():
     my_face = Face(-1, "yel")
     assert my_face == Face(-1, "Y")
     assert my_face != Face(-1, "b")
@@ -34,3 +34,7 @@ def test_no_color_printout(capsys):
     print(my_face)
     captured = capsys.readouterr()
     assert captured.out == "  "+"\n"
+
+def test_repr():
+    my_face = Face(-2, "bl")
+    assert repr(my_face) == "(-2, 'B')"

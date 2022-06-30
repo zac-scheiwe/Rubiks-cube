@@ -21,6 +21,10 @@ class Face:
         # Else:
         raise ValueError("Not a valid color (B,R,Y,W,M,G)")
 
+    @staticmethod
+    def is_valid_tuple(t) -> bool:
+       return isinstance(t, tuple) and list(map(type, t)) == [int, str]
+
     def __init__(self, coord: int, color: Optional[str]=None):
         self._coord = coord
         self._color_name = Face.get_valid_color(color)
@@ -49,9 +53,11 @@ class Face:
 
     def __eq__(self, other) -> bool:
         if isinstance(other, Face):
-            return (self.coord == other.coord) and (self.color == other.color)
-        if isinstance(other, tuple) and list(map(type, other)) == [int, str]:
-            return (self.coord == other[0]) and (self.color == other[1])
+            return (self.coord, self.color) == (other.coord, other.color)
+        if isinstance(other, int) and self.color is None:
+            return self.coord == other
+        if Face.is_valid_tuple(other):
+            return (self.coord, self.color) == other
         # Else:
         return False
  
