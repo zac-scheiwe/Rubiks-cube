@@ -1,39 +1,41 @@
-from .face import Face, ColoredFace
-from typing import Optional
+from .face import Face
+from typing import Union
 
 class Piece:
     """One piece of a Rubik's cube with three faces."""
 
-    @staticmethod
-    def get_face(coord: int, color: Optional[str]=None) -> Face:
-        if color is None:
-            return Face(coord)
-        # Else:
-        return ColoredFace(coord, color)
+    def __init__(self, x: Union[tuple, Face], y: Union[tuple, Face], z: Union[tuple, Face]):
+        self._faces = tuple([f if isinstance(f, Face) else Face(*f) for f in [x,y,z]])
 
-    def __init__(self, x_coord: int, y_coord: int, z_coord: int, x_color: Optional[str]=None, y_color: Optional[str]=None, z_color: Optional[str]=None):
-        self._x = Piece.get_face(x_coord, x_color)
-        self._y = Piece.get_face(y_coord, y_color)
-        self._z = Piece.get_face(z_coord, z_color)
+    @property
+    def faces(self):
+        return self._faces
 
     @property
     def x(self):
-        return self._x
+        return self.faces[0]
 
     @property
     def y(self):
-        return self._y
+        return self.faces[1]
 
     @property
     def z(self):
-        return self._z
+        return self.faces[2]
 
     @property
     def position(self):
-        """Tuple of faces in [x, y, z] order."""
-        return (self.x.coord, self.y.coord, self.z.coord)
+        return tuple([f.coord for f in self.faces])
+
+    @property
+    def colors(self):
+        """Tuple of colours in [x, y, z] order."""
+        return tuple([f.color for f in self.faces])
+
+    def __repr__(self):
+        return self.faces.__repr__
 
     def __str__(self):
-        return sum([face.__str__ for face in self.faces])
+        return " ".join([f.__str__() for f in self.faces])
 
 
