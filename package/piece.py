@@ -29,10 +29,10 @@ class Piece:
         return self._z
 
     @property
-    def faces(self):
+    def position(self):
         """Tuple of faces in [x, y, z] order."""
-        return (self.x, self.y, self.z)
-    
+        return (self.x.coord, self.y.coord, self.z.coord)
+
     def __str__(self):
         return sum([face.__str__ for face in self.faces])
 

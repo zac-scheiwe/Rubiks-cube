@@ -17,11 +17,13 @@ class Face:
     def __eq__(self, other) -> bool:
         if isinstance(other, Face):
             return self.coord == other.coord
+        if isinstance(other, int):
+            return self.coord == other
         # Else:
         return False
 
     def __repr__(self):
-        return self.coord
+        return str(self.coord)
 
 class ColoredFace(Face):
     """A colored face of one piece of a Rubik's cube."""
@@ -53,9 +55,10 @@ class ColoredFace(Face):
         return self.color_name[0].upper()
 
     def __eq__(self, other) -> bool:
-        if Face.__eq__(self, other):
-            if isinstance(other, ColoredFace):
-                return (self.color == other.color)
+        if isinstance(other, ColoredFace):
+            return (self.coord == other.coord) and (self.color == other.color)
+        if isinstance(other, tuple) and list(map(type, other)) == [int, str]:
+            return (self.coord == other[0]) and (self.color == other[1])
         # Else:
         return False
 
@@ -63,4 +66,4 @@ class ColoredFace(Face):
         return colored("██", self.color_name)
     
     def __repr__(self):
-        return (self.coord, self.color)
+        return f"({self.coord}, '{self.color}')"

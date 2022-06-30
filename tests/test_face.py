@@ -1,6 +1,32 @@
 import pytest
 from termcolor import colored  # type: ignore
-from package.face import ColoredFace
+from package.face import Face, ColoredFace
+
+def test_face_coord():
+    my_face = Face(2)
+    assert my_face.coord == 2
+    my_face.switch()
+    assert my_face.coord == -2
+
+def test_face_equality():
+    my_face = Face(2)
+    assert my_face == Face(2)
+    assert my_face != Face(3)
+    assert my_face == 2
+
+def test_colored_face_coord():
+    my_face = ColoredFace(5, "re")
+    assert my_face.coord == 5
+    assert my_face.color == "R"
+    my_face.switch()
+    assert my_face.coord == -5
+
+def test_colored_face_equality():
+    my_face = ColoredFace(-1, "ora")
+    assert my_face == ColoredFace(-1, "O")
+    assert my_face != ColoredFace(-1, "b")
+    assert my_face != ColoredFace(1, "ora")
+    assert my_face == (-1, "O")
 
 def test_invalid_color():
     with pytest.raises(ValueError) as _:
@@ -11,13 +37,3 @@ def test_color_printout(capsys):
     print(my_face)
     captured = capsys.readouterr()
     assert captured.out == colored("██", "yellow")+"\n"
-
-def test_face_properties():
-    my_face = ColoredFace(-1, "wh")
-    assert my_face.color == "W"
-    assert my_face.coord == -1
-
-def test_face_switch():
-    my_face = ColoredFace(5, "re")
-    my_face.switch()
-    assert my_face.coord == -5
