@@ -26,6 +26,7 @@ def test_colored_face_equality():
     assert my_face == ColoredFace(-1, "O")
     assert my_face != ColoredFace(-1, "b")
     assert my_face != ColoredFace(1, "ora")
+    assert my_face != Face(-1)
     assert my_face == (-1, "O")
 
 def test_invalid_color():

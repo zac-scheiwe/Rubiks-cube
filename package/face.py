@@ -61,9 +61,10 @@ class ColoredFace(Face):
             return (self.coord == other[0]) and (self.color == other[1])
         # Else:
         return False
+ 
+    def __repr__(self):
+        return f"({self.coord}, '{self.color}')"
 
     def __str__(self):
         return colored("██", self.color_name)
-    
-    def __repr__(self):
-        return f"({self.coord}, '{self.color}')"
+   
