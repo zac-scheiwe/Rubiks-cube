@@ -8,12 +8,13 @@ def my_rotation_piece():
 
 class TestPiece:
 
-    def test_position(self):
+    def test_attributes(self):
         my_piece = Piece((1, "re"), 4, -3)
         assert my_piece.x == Face(1, "re")
         assert my_piece.y == 4
         assert my_piece.z == -3
         assert my_piece.position == (1, 4, -3)
+        assert my_piece.colors == ("R", None, None)
 
     def test_equality(self):
         my_piece = Piece((1, "ma"), (-1, "Y"), 2)
