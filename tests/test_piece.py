@@ -3,7 +3,7 @@ from package.piece import Piece
 from pytest import fixture
 
 @fixture
-def my_rotation_piece():
+def my_piece():
     yield Piece((2, "whit"), 1, (-3, "bl"))
 
 class TestPiece:
@@ -24,22 +24,22 @@ class TestPiece:
         assert my_piece != Piece(1, -1, 2)
         assert my_piece != Piece((1, "ma"), (-1, "yel"), (2, "bl"))
 
-    def test_no_rotation(self, my_rotation_piece):
-        my_rotation_piece.rotate(-4, "x")
-        assert my_rotation_piece.position == (2, 1, -3)
-        assert my_rotation_piece.colors == ("W", None, "B")
+    def test_no_rotation(self, my_piece):
+        my_piece.rotate(-4, "x")
+        assert my_piece.position == (2, 1, -3)
+        assert my_piece.colors == ("W", None, "B")
 
-    def test_rotation_clockwise(self, my_rotation_piece):
-        my_rotation_piece.rotate(5, "x")
-        assert my_rotation_piece.position == (2, -3, -1)
-        assert my_rotation_piece.colors == ("W", "B", None)
+    def test_rotation_clockwise(self, my_piece):
+        my_piece.rotate(5, "x")
+        assert my_piece.position == (2, -3, -1)
+        assert my_piece.colors == ("W", "B", None)
 
-    def test_rotation_180_degrees(self, my_rotation_piece):
-        my_rotation_piece.rotate(10, "y")
-        assert my_rotation_piece.position == (-2, 1, 3)
-        assert my_rotation_piece.colors == ("W", None, "B")
+    def test_rotation_180_degrees(self, my_piece):
+        my_piece.rotate(10, "y")
+        assert my_piece.position == (-2, 1, 3)
+        assert my_piece.colors == ("W", None, "B")
 
-    def test_rotation_anticlockwise(self, my_rotation_piece):
-        my_rotation_piece.rotate(-1, "y")
-        assert my_rotation_piece.position == (-3, 1, -2)
-        assert my_rotation_piece.colors == ("B", None, "W")
+    def test_rotation_anticlockwise(self, my_piece):
+        my_piece.rotate(-1, "y")
+        assert my_piece.position == (-3, 1, -2)
+        assert my_piece.colors == ("B", None, "W")
