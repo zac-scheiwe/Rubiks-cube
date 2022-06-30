@@ -2,7 +2,7 @@ from .face import Face
 from typing import Union
 
 class Piece:
-    """One piece of a Rubik's cube with three faces."""
+    """One piece of a Rubik's cube with three faces. This class is a named tuple of three Face attributes (x, y, z) with a rotate method."""
 
     FaceType = Union[Face, int, tuple]
 
